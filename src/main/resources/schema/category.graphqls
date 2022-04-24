@@ -1,0 +1,27 @@
+type Query {
+    category(id: Int) : CategoryResponse
+    categoryPath(id: Int) : [CategoryResponse]
+}
+
+type Mutation {
+    createCategory(createCategoryRequest: CreateCategoryRequest) : CategoryResponse
+    updateCategory(updateCategoryRequest: UpdateCategoryRequest) : CategoryResponse
+}
+
+input CreateCategoryRequest {
+    name: String!
+}
+
+input UpdateCategoryRequest {
+    id: Int!,
+    name: String,
+    parent: Int,
+    children: [Int]
+}
+
+type CategoryResponse {
+    id: Int,
+    name: String,
+    parent: Int,
+    children: [Int]
+}
