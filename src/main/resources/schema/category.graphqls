@@ -1,9 +1,9 @@
-type Query {
+extend type Query {
     category(id: Int) : CategoryResponse
     categoryPath(id: Int) : [CategoryResponse]
 }
 
-type Mutation {
+extend type Mutation {
     createCategory(createCategoryRequest: CreateCategoryRequest) : CategoryResponse
     updateCategory(updateCategoryRequest: UpdateCategoryRequest) : CategoryResponse
 }

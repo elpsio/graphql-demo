@@ -1,5 +1,6 @@
 package com.projects.catalog.model;
 
+import com.projects.catalog.util.MonetaryAmount;
 import lombok.*;
 
 @Getter
@@ -11,7 +12,7 @@ public class Item {
 
     private Integer id;
     private String itemId;
-    private String price;
+    private MonetaryAmount price;
     private String currency;
     private String size;
     private Product product;

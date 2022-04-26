@@ -24,9 +24,5 @@ public class CatalogMutation implements GraphQLMutationResolver {
         return categoryService.createOrUpdateCategory(category);
     }
 
-//    public Category addChildren(Category category) {
-//        return categoryService.addChildren(category);
-//    }
-
 
 }

@@ -14,7 +14,7 @@ public class Product {
     private Integer id;
     private String productId;
     private String description;
-    private List<Item> items;
-    private List<Category> categories;
+//    private List<Item> items;
+//    private List<Category> categories;
 
 }

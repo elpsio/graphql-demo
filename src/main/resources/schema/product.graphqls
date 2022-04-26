@@ -1,0 +1,26 @@
+extend type Query {
+    getProduct(id: Int) : ProductResponse
+    getProducts : [ProductResponse]
+}
+
+extend type Mutation {
+    createProduct(createProductRequest: CreateProductRequest) : ProductResponse
+    updateProduct(updateProductRequest: UpdateProductRequest) : ProductResponse
+}
+
+input CreateProductRequest {
+    productId: String,
+    description: String
+}
+
+input UpdateProductRequest {
+    id: Int,
+    productId: String,
+    description: String
+}
+
+type ProductResponse {
+    id: Int,
+    productId: String,
+    description: String
+}
