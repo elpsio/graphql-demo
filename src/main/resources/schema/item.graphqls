@@ -1,0 +1,31 @@
+extend type Query {
+    getItem(id: Int) : ItemResponse
+    getItems : [ItemResponse]
+}
+
+extend type Mutation {
+    createItem(createItemRequest: CreateItemRequest) : ItemResponse
+    updateItem(createItemRequest: UpdateItemRequest) : ItemResponse
+}
+
+input CreateItemRequest {
+    itemId: String,
+    price: MonetaryAmount,
+    size: String
+}
+
+input UpdateItemRequest {
+    id: Int,
+    itemId: String,
+    price: MonetaryAmount,
+    size: String
+}
+
+type ItemResponse {
+    id: Int,
+    itemId: String,
+    price: MonetaryAmount,
+    size: String
+}
+
+scalar MonetaryAmount

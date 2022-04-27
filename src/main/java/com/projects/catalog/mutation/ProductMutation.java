@@ -4,9 +4,9 @@ import com.coxautodev.graphql.tools.GraphQLMutationResolver;
 import com.projects.catalog.model.Product;
 import com.projects.catalog.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
-@Service
+@Component
 public class ProductMutation implements GraphQLMutationResolver {
 
     private final ProductService productService;

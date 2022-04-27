@@ -26,7 +26,4 @@ public class ProductQuery implements GraphQLQueryResolver {
         return productService.getProducts();
     }
 
-//    public List<Category> getCategoryTree(Integer id) {
-//        return categoryService.getCategoryTree(id);
-//    }
 }

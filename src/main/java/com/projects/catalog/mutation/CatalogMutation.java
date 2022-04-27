@@ -4,9 +4,10 @@ import com.coxautodev.graphql.tools.GraphQLMutationResolver;
 import com.projects.catalog.model.Category;
 import com.projects.catalog.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-@Service
+@Component
 public class CatalogMutation implements GraphQLMutationResolver {
 
     private final CategoryService categoryService;
