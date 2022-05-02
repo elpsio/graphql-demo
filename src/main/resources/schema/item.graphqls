@@ -11,21 +11,24 @@ extend type Mutation {
 input CreateItemRequest {
     itemId: String,
     price: MonetaryAmount,
-    size: String
+    size: String,
+    product: Int
 }
 
 input UpdateItemRequest {
     id: Int,
     itemId: String,
     price: MonetaryAmount,
-    size: String
+    size: String,
+    product: Int
 }
 
 type ItemResponse {
     id: Int,
     itemId: String,
     price: MonetaryAmount,
-    size: String
+    size: String,
+    product: Int
 }
 
 scalar MonetaryAmount

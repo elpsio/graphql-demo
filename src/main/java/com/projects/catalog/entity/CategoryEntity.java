@@ -18,12 +18,12 @@ public class CategoryEntity {
     private Integer id;
     @Column(name = "name")
     private String name;
-    @Column(name="parent")
+    @Column(name = "parent")
     private Integer parent;
     @ElementCollection
-    @CollectionTable(name="children", joinColumns=@JoinColumn(name="category_id"))
+    @CollectionTable(name = "children", joinColumns = @JoinColumn(name = "category_id"))
     private List<Integer> children;
-    @ManyToMany(cascade = CascadeType.PERSIST)
+    @OneToMany(cascade = CascadeType.PERSIST)
     private List<ProductEntity> productEntityList;
 
 

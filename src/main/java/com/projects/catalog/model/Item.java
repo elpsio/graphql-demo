@@ -14,6 +14,6 @@ public class Item {
     private String itemId;
     private MonetaryAmount price;
     private String size;
-    private Product product;
+    private Integer product;
 
 }

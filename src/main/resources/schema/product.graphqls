@@ -1,26 +1,32 @@
 extend type Query {
-    getProduct(id: Int) : ProductResponse
+    getProduct(id: Int!) : ProductResponse
     getProducts : [ProductResponse]
 }
 
 extend type Mutation {
-    createProduct(createProductRequest: CreateProductRequest) : ProductResponse
-    updateProduct(updateProductRequest: UpdateProductRequest) : ProductResponse
+    createProduct(createProductRequest: CreateProductRequest!) : ProductResponse
+    updateProduct(updateProductRequest: UpdateProductRequest!) : ProductResponse
 }
 
 input CreateProductRequest {
     productId: String,
     description: String
+    category: Int,
+    items: [Int]
 }
 
 input UpdateProductRequest {
-    id: Int,
+    id: Int!,
     productId: String,
     description: String
+    category: Int,
+    items: [Int]
 }
 
 type ProductResponse {
-    id: Int,
-    productId: String,
-    description: String
+    id: Int!,
+    productId: String!,
+    description: String!,
+    category: Int,
+    items: [Int]
 }

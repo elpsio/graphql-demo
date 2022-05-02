@@ -5,7 +5,6 @@ import com.projects.catalog.model.Category;
 import com.projects.catalog.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 @Component
 public class CatalogMutation implements GraphQLMutationResolver {

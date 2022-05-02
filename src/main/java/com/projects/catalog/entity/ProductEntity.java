@@ -20,10 +20,10 @@ public class ProductEntity {
     private String productId;
     @Column(name = "description")
     private String description;
-    @OneToMany(cascade=CascadeType.PERSIST)
+    @OneToMany(cascade = CascadeType.PERSIST)
     private List<ItemEntity> itemEntityList;
-    @ManyToMany(cascade=CascadeType.PERSIST)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "category_id")
-    private List<CategoryEntity> categoryEntity;
+    private CategoryEntity categoryEntity;
 
 }

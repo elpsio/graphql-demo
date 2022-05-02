@@ -15,6 +15,6 @@ public class Category {
     private String name;
     private Integer parent;
     private List<Integer> children;
-    private List<Product> productEntityList;
+    private List<Integer> products;
 
 }

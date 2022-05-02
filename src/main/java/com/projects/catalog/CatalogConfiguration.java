@@ -12,4 +12,5 @@ public class CatalogConfiguration {
     public ConversionService conversionService() {
         return new GenericConversionService();
     }
+
 }

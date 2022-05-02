@@ -2,21 +2,20 @@ package com.projects.catalog.converter;
 
 import com.projects.catalog.entity.CategoryEntity;
 import com.projects.catalog.model.Category;
+import com.projects.catalog.repository.CategoryRepository;
+import com.projects.catalog.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.convert.ConversionService;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
-
-import java.util.stream.Collectors;
 
 @Component
 public class CategoryToEntityConverter implements Converter<Category, CategoryEntity> {
 
-    private final ConversionService conversionService;
+    private final ProductRepository productRepository;
 
     @Autowired
-    public CategoryToEntityConverter(ConversionService conversionService) {
-        this.conversionService = conversionService;
+    public CategoryToEntityConverter(ProductRepository productRepository) {
+        this.productRepository = productRepository;
     }
 
     @Override
@@ -26,9 +25,9 @@ public class CategoryToEntityConverter implements Converter<Category, CategoryEn
         categoryEntity.setName(source.getName());
         categoryEntity.setParent(source.getParent());
         categoryEntity.setChildren(source.getChildren());
-//        categoryEntity.setProductEntityList(source.getProductEntityList().stream()
-//                .map(p -> conversionService.convert(p, ProductEntity.class))
-//                .collect(Collectors.toList()));
+        if (source.getProducts() != null && !source.getProducts().isEmpty()) {
+            categoryEntity.setProductEntityList(productRepository.findAllById(source.getProducts()));
+        }
         return categoryEntity;
     }
 }

@@ -9,7 +9,9 @@ extend type Mutation {
 }
 
 input CreateCategoryRequest {
-    name: String!
+    name: String,
+    parent: Int,
+    children: [Int]
 }
 
 input UpdateCategoryRequest {
