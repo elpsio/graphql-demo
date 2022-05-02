@@ -34,7 +34,9 @@ public class DatabaseInitializer {
         ItemEntity i3 = createItemEntity("555553", new BigDecimal("24.95"), "L");
         ItemEntity i4 = createItemEntity("555554", new BigDecimal("24.95"), "XL");
         ItemEntity i5 = createItemEntity("555555", new BigDecimal("24.95"), "XXL");
-        CategoryEntity c1 = createCategoryEntity("Simple category", null, null);
+        CategoryEntity root = categoryRepository.save(createCategoryEntity("Root category", null));
+        CategoryEntity savedRoot = categoryRepository.save(root);
+        CategoryEntity c1 = createCategoryEntity("Simple category", savedRoot.getId());
         ProductEntity product = createProductEntity(List.of(i1, i2, i3, i4, i5), c1);
         productRepository.save(product);
     }
@@ -59,11 +61,10 @@ public class DatabaseInitializer {
         return productEntity;
     }
 
-    private static CategoryEntity createCategoryEntity(String name, Integer parent, List<Integer> children) {
+    private static CategoryEntity createCategoryEntity(String name, Integer parent) {
         CategoryEntity categoryEntity = new CategoryEntity();
         categoryEntity.setName(name);
         categoryEntity.setParent(parent);
-        categoryEntity.setChildren(children);
         return categoryEntity;
     }
 

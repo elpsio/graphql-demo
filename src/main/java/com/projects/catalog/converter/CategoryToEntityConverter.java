@@ -24,7 +24,6 @@ public class CategoryToEntityConverter implements Converter<Category, CategoryEn
         categoryEntity.setId(source.getId());
         categoryEntity.setName(source.getName());
         categoryEntity.setParent(source.getParent());
-        categoryEntity.setChildren(source.getChildren());
         if (source.getProducts() != null && !source.getProducts().isEmpty()) {
             categoryEntity.setProductEntityList(productRepository.findAllById(source.getProducts()));
         }

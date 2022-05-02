@@ -11,19 +11,19 @@ extend type Mutation {
 input CreateCategoryRequest {
     name: String,
     parent: Int,
-    children: [Int]
+    products: [Int]
 }
 
 input UpdateCategoryRequest {
     id: Int!,
     name: String,
     parent: Int,
-    children: [Int]
+    products: [Int]
 }
 
 type CategoryResponse {
     id: Int,
     name: String,
     parent: Int,
-    children: [Int]
+    products: [Int]
 }

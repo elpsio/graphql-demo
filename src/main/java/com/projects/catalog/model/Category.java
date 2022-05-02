@@ -14,7 +14,6 @@ public class Category {
     private Integer id;
     private String name;
     private Integer parent;
-    private List<Integer> children;
     private List<Integer> products;
 
 }

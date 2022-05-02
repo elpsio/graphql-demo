@@ -18,7 +18,6 @@ public class EntityToCategoryConverter implements Converter<CategoryEntity, Cate
                 .id(source.getId())
                 .name(source.getName())
                 .parent(source.getParent())
-                .children(source.getChildren())
                 .products(source.getProductEntityList() != null
                         ? source.getProductEntityList().stream()
                         .map(ProductEntity::getId)
