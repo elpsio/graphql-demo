@@ -16,9 +16,7 @@ public class EntityToItemConverter implements Converter<ItemEntity, Item> {
                 .itemId(source.getItemId())
                 .price(new MonetaryAmount(source.getPrice(), source.getCurrency()))
                 .size(source.getSize())
-                .product(source.getProductEntity() != null
-                        ? source.getProductEntity().getId()
-                        : null)
+                .product(source.getProductId())
                 .build();
     }
 }

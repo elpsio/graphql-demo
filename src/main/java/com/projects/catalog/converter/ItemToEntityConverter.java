@@ -10,14 +10,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class ItemToEntityConverter implements Converter<Item, ItemEntity> {
 
-    private final ProductRepository productRepository;
-
-    @Autowired
-    public ItemToEntityConverter(ProductRepository productRepository) {
-        this.productRepository = productRepository;
-    }
-
-
     @Override
     public ItemEntity convert(Item source) {
         ItemEntity itemEntity = new ItemEntity();
@@ -26,9 +18,7 @@ public class ItemToEntityConverter implements Converter<Item, ItemEntity> {
         itemEntity.setPrice(source.getPrice().amount());
         itemEntity.setCurrency(source.getPrice().currency());
         itemEntity.setSize(source.getSize());
-        itemEntity.setProductEntity(source.getProduct() != null
-                ? productRepository.getById(source.getProduct())
-                : null);
+        itemEntity.setProductId(source.getProduct());
         return itemEntity;
     }
 }

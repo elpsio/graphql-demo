@@ -20,8 +20,9 @@ public class CategoryEntity {
     private String name;
     @Column(name = "parent")
     private Integer parent;
-    @OneToMany(cascade = CascadeType.PERSIST)
-    private List<ProductEntity> productEntityList;
+    @Column(name = "product_id")
+    @ElementCollection
+    private List<Integer> productIds;
 
 
 }

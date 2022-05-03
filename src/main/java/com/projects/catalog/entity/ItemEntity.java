@@ -24,8 +24,7 @@ public class ItemEntity {
     private String currency;
     @Column(name = "size")
     private String size;
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "product_id")
-    private ProductEntity productEntity;
+    @Column(name = "product_id")
+    private Integer productId;
 
 }

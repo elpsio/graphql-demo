@@ -1,5 +1,6 @@
 package com.projects.catalog;
 
+import com.google.common.collect.ImmutableList;
 import com.projects.catalog.entity.CategoryEntity;
 import com.projects.catalog.entity.ItemEntity;
 import com.projects.catalog.entity.ProductEntity;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -29,16 +31,66 @@ public class DatabaseInitializer {
 
     @PostConstruct
     public void init() {
-        ItemEntity i1 = createItemEntity("555551", new BigDecimal("24.95"), "S");
-        ItemEntity i2 = createItemEntity("555552", new BigDecimal("24.95"), "M");
-        ItemEntity i3 = createItemEntity("555553", new BigDecimal("24.95"), "L");
-        ItemEntity i4 = createItemEntity("555554", new BigDecimal("24.95"), "XL");
-        ItemEntity i5 = createItemEntity("555555", new BigDecimal("24.95"), "XXL");
-        CategoryEntity root = categoryRepository.save(createCategoryEntity("Root category", null));
+        List<ProductEntity> productEntities = new ArrayList<>();
+        for (int i = 0; i < 30; i++) {
+            productEntities.add(createProduct(i + 1, 5));
+        }
+        createCategories(productEntities, 3);
+    }
+
+    private void createCategories(List<ProductEntity> productEntities, int itemsPerCategory) {
+        CategoryEntity root = categoryRepository.save(createCategoryEntity(List.of(), "Root category", null));
         CategoryEntity savedRoot = categoryRepository.save(root);
-        CategoryEntity c1 = createCategoryEntity("Simple category", savedRoot.getId());
-        ProductEntity product = createProductEntity(List.of(i1, i2, i3, i4, i5), c1);
-        productRepository.save(product);
+
+        for (int i = 0; i + itemsPerCategory - 1 < productEntities.size(); i = i + itemsPerCategory) {
+            List<Integer> productIds = new ArrayList<>();
+            List<ProductEntity> productsInCategory = new ArrayList<>();
+            for (int j = 0; j < itemsPerCategory; j++) {
+                productIds.add(productEntities.get(i + j).getId());
+                productsInCategory.add(productEntities.get(i + j));
+            }
+            CategoryEntity category = createCategoryEntity(productIds, "Simple category", savedRoot.getId());
+            CategoryEntity savedCategory = categoryRepository.save(category);
+            productsInCategory.forEach(p -> p.setCategoryId(savedCategory.getId()));
+            productRepository.saveAll(productsInCategory);
+        }
+    }
+
+    private ProductEntity createProduct(int productId, int amountOfItems) {
+        //init items
+        List<String> sizes = ImmutableList.of("S", "M", "L", "XL", "XXL");
+        List<BigDecimal> prices = ImmutableList.of(
+                new BigDecimal("19.95"),
+                new BigDecimal("20.95"),
+                new BigDecimal("21.95"),
+                new BigDecimal("22.95"),
+                new BigDecimal("23.95"));
+
+        if (amountOfItems > 5) {
+            throw new IllegalStateException("Max 5 items per product supported");
+        }
+
+
+        List<ItemEntity> items = new ArrayList<>();
+        for (int i = 0; i < amountOfItems - 1; i++) {
+            String itemId = productId + String.valueOf(i);
+            ItemEntity itemEntity = createItemEntity(itemId, prices.get(i), sizes.get(i));
+            items.add(itemEntity);
+        }
+        List<ItemEntity> savedItems = itemRepository.saveAll(items);
+        List<Integer> savedItemIds = savedItems.stream()
+                .map(ItemEntity::getId)
+                .toList();
+
+        //init product
+        ProductEntity product = createProductEntity(productId, savedItemIds);
+        ProductEntity savedProduct = productRepository.save(product);
+
+        //update item product relation
+        savedItems.forEach(i -> i.setProductId(savedProduct.getId()));
+        itemRepository.saveAll(items);
+
+        return savedProduct;
     }
 
     private static ItemEntity createItemEntity(String itemId, BigDecimal amount, String size) {
@@ -50,21 +102,19 @@ public class DatabaseInitializer {
         return itemEntity;
     }
 
-    private static ProductEntity createProductEntity(List<ItemEntity> items, CategoryEntity category) {
+    private static ProductEntity createProductEntity(int productId, List<Integer> itemIds) {
         ProductEntity productEntity = new ProductEntity();
-        productEntity.setProductId("55555");
+        productEntity.setProductId(String.valueOf(productId));
         productEntity.setDescription("Simple product");
-        productEntity.setItemEntityList(items);
-        items.forEach(i -> i.setProductEntity(productEntity));
-        productEntity.setCategoryEntity(category);
-        category.setProductEntityList(List.of(productEntity));
+        productEntity.setItemIds(itemIds);
         return productEntity;
     }
 
-    private static CategoryEntity createCategoryEntity(String name, Integer parent) {
+    private static CategoryEntity createCategoryEntity(List<Integer> productIds, String name, Integer parent) {
         CategoryEntity categoryEntity = new CategoryEntity();
         categoryEntity.setName(name);
         categoryEntity.setParent(parent);
+        categoryEntity.setProductIds(productIds);
         return categoryEntity;
     }
 

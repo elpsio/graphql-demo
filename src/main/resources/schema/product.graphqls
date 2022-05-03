@@ -28,5 +28,5 @@ type ProductResponse {
     productId: String!,
     description: String!,
     category: Int,
-    items: [Int]
+    items: [ItemResponse]
 }
