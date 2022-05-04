@@ -5,6 +5,7 @@ import com.projects.catalog.model.Product;
 import com.projects.catalog.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -35,6 +36,12 @@ public class ProductService {
 
     public List<Product> getProducts() {
         return productRepository.findAll().stream()
+                .map(p -> conversionService.convert(p, Product.class))
+                .collect(Collectors.toList());
+    }
+
+    public List<Product> getProducts(int limit) {
+        return productRepository.findAll(PageRequest.of(0, limit)).stream()
                 .map(p -> conversionService.convert(p, Product.class))
                 .collect(Collectors.toList());
     }

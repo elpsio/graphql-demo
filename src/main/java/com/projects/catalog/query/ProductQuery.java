@@ -27,4 +27,8 @@ public class ProductQuery implements GraphQLQueryResolver {
         return productService.getProducts();
     }
 
+    public List<Product> getLimitedProducts(int limit) {
+        return productService.getProducts(limit);
+    }
+
 }

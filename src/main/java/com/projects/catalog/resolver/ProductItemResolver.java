@@ -18,10 +18,10 @@ public class ProductItemResolver implements GraphQLResolver<Product> {
 
   public CompletableFuture<List<Item>> items(Product product, DataFetchingEnvironment dfe) {
 
-    DataLoader<Integer, Item> dataLoader = dfe.getDataLoaderRegistry()
+    DataLoader<Integer, List<Item>> dataLoader = dfe.getDataLoaderRegistry()
         .getDataLoader(DataLoaderRegistryFactory.ITEM_DATA_LOADER);
 
-    return dataLoader.loadMany(product.getItems());
+    return dataLoader.load(product.getId());
   }
 
 

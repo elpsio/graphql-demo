@@ -1,6 +1,7 @@
 extend type Query {
     getProduct(id: Int!) : ProductResponse
     getProducts : [ProductResponse]
+    getLimitedProducts(limit: Int) : [ProductResponse]
 }
 
 extend type Mutation {
