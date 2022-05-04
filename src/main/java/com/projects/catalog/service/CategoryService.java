@@ -11,6 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
+import graphql.com.google.common.collect.ImmutableList;
 
 @Service
 public class CategoryService {
@@ -36,7 +39,7 @@ public class CategoryService {
     public List<Category> getCategoryPath(Integer id) {
         List<Category> categories = categoryRepository.findAll().stream()
                 .map(c -> conversionService.convert(c, Category.class))
-                .toList();
+                .collect(Collectors.toList());
 
         Optional<Category> root = categories.stream()
                 .filter(c -> Objects.equals(id, c.getId()))
@@ -56,7 +59,7 @@ public class CategoryService {
                     }
                     return list;
                 })
-                .orElse(List.of());
+                .orElse(ImmutableList.of());
     }
 
 }

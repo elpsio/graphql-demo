@@ -2,10 +2,26 @@ package com.projects.catalog.util;
 
 import java.math.BigDecimal;
 
-public record MonetaryAmount(BigDecimal amount, String currency) {
+public class MonetaryAmount {
 
-    @Override
-    public String toString() {
-        return amount + " " + currency;
-    }
+  private final BigDecimal amount;
+  private final String currency;
+
+  public MonetaryAmount(BigDecimal amount, String currency) {
+    this.amount = amount;
+    this.currency = currency;
+  }
+
+  public BigDecimal getAmount() {
+    return amount;
+  }
+
+  public String getCurrency() {
+    return currency;
+  }
+
+  @Override
+  public String toString() {
+    return amount + " " + currency;
+  }
 }

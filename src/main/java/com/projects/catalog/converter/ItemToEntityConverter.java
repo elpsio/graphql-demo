@@ -15,8 +15,8 @@ public class ItemToEntityConverter implements Converter<Item, ItemEntity> {
         ItemEntity itemEntity = new ItemEntity();
         itemEntity.setId(source.getId());
         itemEntity.setItemId(source.getItemId());
-        itemEntity.setPrice(source.getPrice().amount());
-        itemEntity.setCurrency(source.getPrice().currency());
+        itemEntity.setPrice(source.getPrice().getAmount());
+        itemEntity.setCurrency(source.getPrice().getCurrency());
         itemEntity.setSize(source.getSize());
         itemEntity.setProductId(source.getProduct());
         return itemEntity;

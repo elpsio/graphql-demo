@@ -1,32 +1,29 @@
 package com.projects.catalog.resolver;
 
-import com.coxautodev.graphql.tools.GraphQLResolver;
-import com.projects.catalog.model.Item;
-import com.projects.catalog.model.Product;
-import com.projects.catalog.repository.ItemRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.convert.ConversionService;
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
+
+import org.dataloader.DataLoader;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import com.projects.catalog.dataloader.DataLoaderRegistryFactory;
+import com.projects.catalog.model.Item;
+import com.projects.catalog.model.Product;
+
+import graphql.kickstart.tools.GraphQLResolver;
+import graphql.schema.DataFetchingEnvironment;
 
 @Component
 public class ProductItemResolver implements GraphQLResolver<Product> {
 
-    private final ItemRepository itemRepository;
-    private final ConversionService conversionService;
+  public CompletableFuture<List<Item>> items(Product product, DataFetchingEnvironment dfe) {
 
-    @Autowired
-    public ProductItemResolver(ItemRepository itemRepository, ConversionService conversionService) {
-        this.itemRepository = itemRepository;
-        this.conversionService = conversionService;
-    }
+    DataLoader<Integer, Item> dataLoader = dfe.getDataLoaderRegistry()
+        .getDataLoader(DataLoaderRegistryFactory.ITEM_DATA_LOADER);
 
-    public List<Item> items(Product product) {
-        return itemRepository.findAllById(product.getItems()).stream()
-                .map(i -> conversionService.convert(i, Item.class))
-                .collect(Collectors.toList());
-    }
+    return dataLoader.loadMany(product.getItems());
+  }
+
+
 
 }

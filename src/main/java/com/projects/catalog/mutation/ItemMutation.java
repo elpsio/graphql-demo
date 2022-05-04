@@ -1,11 +1,11 @@
 package com.projects.catalog.mutation;
 
-import com.coxautodev.graphql.tools.GraphQLMutationResolver;
 import com.projects.catalog.model.Item;
 import com.projects.catalog.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
+
+import graphql.kickstart.tools.GraphQLMutationResolver;
 
 @Component
 public class ItemMutation implements GraphQLMutationResolver {

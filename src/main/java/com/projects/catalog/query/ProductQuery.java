@@ -1,12 +1,13 @@
 package com.projects.catalog.query;
 
-import com.coxautodev.graphql.tools.GraphQLQueryResolver;
 import com.projects.catalog.model.Product;
 import com.projects.catalog.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+
+import graphql.kickstart.tools.GraphQLQueryResolver;
 
 @Component
 public class ProductQuery implements GraphQLQueryResolver {

@@ -1,14 +1,14 @@
 package com.projects.catalog.query;
 
-import com.coxautodev.graphql.tools.GraphQLQueryResolver;
-import com.projects.catalog.model.Category;
-import com.projects.catalog.repository.CategoryRepository;
-import com.projects.catalog.service.CategoryService;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
+import com.projects.catalog.model.Category;
+import com.projects.catalog.service.CategoryService;
+
+import graphql.kickstart.tools.GraphQLQueryResolver;
 
 @Component
 public class CatalogQuery implements GraphQLQueryResolver {

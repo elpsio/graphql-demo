@@ -1,12 +1,14 @@
 package com.projects.catalog.query;
 
-import com.coxautodev.graphql.tools.GraphQLQueryResolver;
-import com.projects.catalog.model.Item;
-import com.projects.catalog.service.ItemService;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
+import com.projects.catalog.model.Item;
+import com.projects.catalog.service.ItemService;
+
+import graphql.kickstart.tools.GraphQLQueryResolver;
 
 @Component
 public class ItemQuery implements GraphQLQueryResolver {

@@ -1,19 +1,23 @@
 package com.projects.catalog;
 
-import com.google.common.collect.ImmutableList;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import javax.annotation.PostConstruct;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import com.projects.catalog.entity.CategoryEntity;
 import com.projects.catalog.entity.ItemEntity;
 import com.projects.catalog.entity.ProductEntity;
 import com.projects.catalog.repository.CategoryRepository;
 import com.projects.catalog.repository.ItemRepository;
 import com.projects.catalog.repository.ProductRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
+import graphql.com.google.common.collect.ImmutableList;
 
 @Component
 public class DatabaseInitializer {
@@ -39,7 +43,7 @@ public class DatabaseInitializer {
     }
 
     private void createCategories(List<ProductEntity> productEntities, int itemsPerCategory) {
-        CategoryEntity root = categoryRepository.save(createCategoryEntity(List.of(), "Root category", null));
+        CategoryEntity root = categoryRepository.save(createCategoryEntity(ImmutableList.of(), "Root category", null));
         CategoryEntity savedRoot = categoryRepository.save(root);
 
         for (int i = 0; i + itemsPerCategory - 1 < productEntities.size(); i = i + itemsPerCategory) {
@@ -80,7 +84,7 @@ public class DatabaseInitializer {
         List<ItemEntity> savedItems = itemRepository.saveAll(items);
         List<Integer> savedItemIds = savedItems.stream()
                 .map(ItemEntity::getId)
-                .toList();
+            .collect(Collectors.toList());
 
         //init product
         ProductEntity product = createProductEntity(productId, savedItemIds);
