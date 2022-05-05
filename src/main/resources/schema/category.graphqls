@@ -1,6 +1,6 @@
 extend type Query {
-    category(id: Int) : CategoryResponse
-    categoryPath(id: Int) : [CategoryResponse]
+    getCategory(id: Int) : CategoryResponse
+    getCategoryPath(id: Int) : [CategoryResponse]
 }
 
 extend type Mutation {

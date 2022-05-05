@@ -28,6 +28,6 @@ type ProductResponse {
     id: Int!,
     productId: String!,
     description: String!,
-    category: Int,
+    category: CategoryResponse,
     items: [ItemResponse]
 }

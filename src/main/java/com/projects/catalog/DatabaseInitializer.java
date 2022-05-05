@@ -35,11 +35,11 @@ public class DatabaseInitializer {
 
     @PostConstruct
     public void init() {
-        List<ProductEntity> productEntities = new ArrayList<>();
-        for (int i = 0; i < 30; i++) {
-            productEntities.add(createProduct(i + 1, 5));
-        }
-        createCategories(productEntities, 3);
+//        List<ProductEntity> productEntities = new ArrayList<>();
+//        for (int i = 0; i < 30; i++) {
+//            productEntities.add(createProduct(i + 1, 5));
+//        }
+//        createCategories(productEntities, 3);
     }
 
     private void createCategories(List<ProductEntity> productEntities, int itemsPerCategory) {

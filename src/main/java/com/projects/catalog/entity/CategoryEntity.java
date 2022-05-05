@@ -24,5 +24,4 @@ public class CategoryEntity {
     @ElementCollection
     private List<Integer> productIds;
 
-
 }
