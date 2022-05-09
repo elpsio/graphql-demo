@@ -14,6 +14,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import graphql.com.google.common.collect.ImmutableList;
+import lombok.RequiredArgsConstructor;
 
 @Service
 public class CategoryService {
